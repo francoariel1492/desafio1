@@ -1,10 +1,9 @@
-const products = [];
-
 class ProductManager {
   static id = 0;
+  static products = [];
 
   constructor(title, description, price, thumbnail, code, stock) {
-    this.id = ProductManager.id++; // Incrementing and assigning the static id to the instance id property
+    this.id = ProductManager.id++;
     this.title = title;
     this.description = description;
     this.price = price;
@@ -19,8 +18,8 @@ class ProductManager {
       return;
     }
 
-    const verifyCode = products.some((p) => p.code === code);
-    if (verifyCode) {
+    const productExist = this.products.some((p) => p.code === code);
+    if (productExist) {
       console.error("Error: Code repeated");
       return;
     }
@@ -35,24 +34,27 @@ class ProductManager {
       stock,
     };
 
-    products.push(product);
-    // console.log("Product added:", product);
+    ProductManager.products.push(product);
+    console.log("Product added:", product);
   }
 
   static getProducts() {
-    return console.log("All products: ", products);
+    console.log("All this.products: ", this.products);
+    return
   }
 
   static getProductById(id) {
 
 
-    const product = products.filter((p) => p.id === id);
+    const product = this.products.filter((p) => p.id === id);
 
     
     if (product.length === 0) {
-      return console.error(`The product with id ${id} was not found`);
+      console.error(`The product with id ${id} was not found`);
+      return 
     }
-    return console.log(`The product with the id ${id} that you are looking for is:`, product);
+    console.log(`The product with the id ${id} that you are looking for is:`, product);
+    return
   }
 }
 
